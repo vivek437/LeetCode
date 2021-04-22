@@ -4,29 +4,27 @@ https://leetcode.com/problems/brick-wall/
 
 class Solution {
     public int leastBricks(List<List<Integer>> wall) {
-        
-        int s = 0; 
-        for(int i = 0; i<wall.get(0).size(); i++){
-             s = s + wall.get(0).get(i);
-        }
-        
+                
         HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
         int max = 0;
-        for(int i=0;i<wall.size();i++){
-            int x = 0;
-            
-            for(int j=0;j<wall.get(i).size();j++) {
+        int r = wall.size(),c =0,x = 0,p=0,val =0;
+        
+        for(int i=0;i<r;i++){
+            x = 0;
+            c = wall.get(i).size();
+            for(int j=0;j<c-1;j++) {
 
-                int p = wall.get(i).get(j);
+                p = wall.get(i).get(j);
                 x = x + p - 1;
-                int val = hm.getOrDefault(x,0);
+                val = hm.getOrDefault(x,0);
                 val = val + 1;
                 hm.put(x, val);
-                if(val > max && x!=s-1 )
+                if(val > max)
                      max = val;
                 x++;
            }
         }
-        return wall.size()-max;
+        return r-max;
     }
 }
+
