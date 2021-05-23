@@ -6,15 +6,14 @@ class Solution {
         N = n;
         ans = new ArrayList<>(); 
         HashSet<Integer> filledRows = new HashSet<>();
-        HashSet<Integer> filledCols = new HashSet<>();
         int[][] pos = new int[n][n];
         
-        placeQueens(filledRows,filledCols,0,pos,0);
+        placeQueens(filledRows,0,pos,0);
         return ans;
     }
     
     
-   void placeQueens(HashSet<Integer> filledRows ,HashSet<Integer> filledCols,int nextCol,int[][] pos,int count){
+   void placeQueens(HashSet<Integer> filledRows, int nextCol,int[][] pos,int count){
        
         if(count == N) {
             List<String> temp = new ArrayList<>();
@@ -37,22 +36,22 @@ class Solution {
         }
         
         for(int row = 0 ;row < N ;row++){
-            boolean ll = diaContains(filledRows,filledCols,row,nextCol,pos);
-            if(!filledRows.contains(row) && !ll){
+            if(filledRows.contains(row))
+                  continue;
+            boolean ll = diaContains(row,nextCol,pos);
+            if(!ll){
                 count++;
                 filledRows.add(row);
-                filledCols.add(nextCol);
                 pos[row][nextCol] = 1;
-                placeQueens(filledRows,filledCols,nextCol+1,pos,count);
+                placeQueens(filledRows,nextCol+1,pos,count);
                 count--;
                 pos[row][nextCol] = 0;
-                filledRows.remove(row);
-                filledCols.remove(nextCol);     
+                filledRows.remove(row);  
             }
         }
     }
     
-    boolean diaContains(HashSet<Integer> filledRows ,HashSet<Integer> filledCols,int r,int c,int[][] pos){
+    boolean diaContains(int r,int c,int[][] pos){
       
         int stRow = r-c,stCol = c-r;
         if(stRow<0)
