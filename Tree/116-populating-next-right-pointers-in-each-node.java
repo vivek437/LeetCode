@@ -53,7 +53,7 @@ class Solution {
                 par.next = temp;
                 par = temp;
              }  
-            par.right = null;
+            par.next = null;
             q2 = q1;
             if(q2.size()==0)
                 break;
